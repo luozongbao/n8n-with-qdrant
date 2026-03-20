@@ -81,13 +81,10 @@ services:
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
       - TZ=${GENERIC_TIMEZONE}
       - N8N_COMMUNITY_PACKAGES_ENABLED=true
-
     volumes:
       - n8n_data:/home/node/.n8n
       - ./local-files:/files
       - ./nodes-info:/nodes-info
-      - ./docker-entrypoint.sh:/docker-entrypoint.sh:ro
-    entrypoint: ["/bin/sh", "/docker-entrypoint.sh"]
 volumes:
   n8n_data:
   traefik_data:

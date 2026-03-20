@@ -67,11 +67,15 @@ https://<SUBDOMAIN>.<DOMAIN_NAME>
 
 On first launch, n8n will prompt you to create an admin account.
 
-## Pre-loaded Credentials
+## Qdrant (local service)
 
-On startup, the custom entrypoint (`docker-entrypoint.sh`) automatically imports any credential files found in the `nodes-info/` directory into n8n.
+This stack runs a local Qdrant service in the `qdrant` container. No API key or external credentials are required — when configuring Qdrant in n8n or other integrations, set the Qdrant URL to:
 
-This stack ships with a pre-configured **Qdrant API** credential (`Local QdrantApi database`) that points to the local Qdrant container. It is wired up for use with n8n's LangChain Qdrant Vector Store node (`@n8n/n8n-nodes-langchain.vectorStoreQdrant`), so you can build AI/RAG workflows immediately without manual credential setup.
+```
+http://qdrant:6333
+```
+
+For example, use this URL in the LangChain Qdrant Vector Store node (`@n8n/n8n-nodes-langchain.vectorStoreQdrant`) or any client connecting to the local Qdrant container.
 
 ## Project Structure
 
@@ -79,8 +83,7 @@ This stack ships with a pre-configured **Qdrant API** credential (`Local QdrantA
 .
 ├── docker-compose.yml        # Service definitions
 ├── docker-entrypoint.sh      # n8n startup script (auto-imports credentials)
-├── nodes-info/               # Credential JSON files auto-imported into n8n
-│   └── sFfERYppMeBnFNeA.json # Pre-configured local Qdrant credential
+├── nodes-info/               # Credential JSON files auto-imported into n8n (optional)
 ├── local-files/              # Files accessible inside n8n at /files (create if needed)
 └── .env                      # Environment variables (not committed)
 ```
